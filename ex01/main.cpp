@@ -23,7 +23,7 @@ int	main()
 		else if (command.compare("SEARCH") == 0)
 		{
 			std::cout << "SEARCHING" << std::endl;
-			// phonebook.searchContacts();
+			phonebook.searchContacts();
 		}
 
 		else if (command.compare("EXIT") == 0)

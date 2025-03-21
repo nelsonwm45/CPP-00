@@ -8,28 +8,33 @@ int	main()
 
 	while (1)
 	{
-		std::cout << "Welcome to PhoneBook Program" << std::endl;
-		std::cout << "This Program Only Accept: ADD, SEARCH and EXIT" << std::endl;
-		std::cout << "Please type in your command" << std::endl;
-
+		phonebook.welcomeMessage();
 		std::getline(std::cin, command);
+		for (size_t j = 0; j < command.length(); j++) // if user's input is lowercase letter, make it uppercase
+		{
+			if (command[j] >= 97 && command[j] <= 122)
+				command[j] = (char)toupper(command[j]);
+		}
 
 		if (command.compare("ADD") == 0)
 		{
-			std::cout << "ADDING A CONTACT TO PHONEBOOK" << std::endl;
+			std::cout << GREEN << "➕ ADD CONTACT" << RESET << std::endl;
 			phonebook.addContact();
 		}
-
 		else if (command.compare("SEARCH") == 0)
 		{
-			std::cout << "SEARCHING" << std::endl;
+			std::cout << GREEN << "🔎 SEARCH CONTACT" << RESET << std::endl;
 			phonebook.searchContacts();
 		}
-
 		else if (command.compare("EXIT") == 0)
 		{
-			std::cout << "EXITING" << std::endl;
+			std::cout << GREEN << "🚪 EXIT" << RESET << std::endl;
 			break;
+		}
+		else
+		{
+			std::cout << RED << "Invalid Command" << RESET << std::endl;
+			std::cout << RED << "Only ADD, SEARCH and EXIT Commands are allowed" << RESET << std::endl;
 		}
 	}
 }

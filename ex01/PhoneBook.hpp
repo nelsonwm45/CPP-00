@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <limits> // for max()
 
 # define RED "\033[31m"
 # define GREEN "\033[32m"
@@ -20,17 +21,24 @@ class PhoneBook
 	private:
 		Contact contacts[8];
 		int num_Contacts;
+		int	maxContacts;
 		int	i;
 
-		std::string replace_dot(std::string str);
+		Contact add_contact_info(std::string info[5]);
+		void getContactInfo(std::string (&info)[5]);
+		int invalid_response(std::string info);
+
 		void print_table_header();
 		void print_contact_in_table();
-		void prompt_display_contact();
+
+		std::string replace_dot(std::string str);
 		
 	public:
 		PhoneBook();
+		void welcomeMessage();
 		void addContact();
 		void searchContacts();
+		void prompt_display_contact();
 		void displayContact(int index);
 };
 

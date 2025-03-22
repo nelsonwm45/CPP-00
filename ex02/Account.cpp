@@ -1,4 +1,5 @@
 #include "Account.hpp"
+#include <iostream>
 #include <ctime>
 #include <iomanip> // for std::put_time
 
@@ -13,10 +14,10 @@
 
 	Initialise every static variables to 0;
 */
-static int	Account::_nbAccounts = 0;
-static int	Account::_totalAmount = 0;
-static int	Account::_totalNbDeposits = 0;
-static int	Account::_totalNbWithdrawals = 0;
+int	Account::_nbAccounts = 0;
+int	Account::_totalAmount = 0;
+int	Account::_totalNbDeposits = 0;
+int	Account::_totalNbWithdrawals = 0;
 
 /*
 	Constructor
@@ -54,7 +55,7 @@ Account::~Account()
 {
 	_displayTimestamp();
 	std::cout << "index:" << _accountIndex
-			  << ";amount:" << _amount;
+			  << ";amount:" << _amount
 			  << ";closed" << std::endl;
 
 	// Update the NbAccount
@@ -85,33 +86,35 @@ Account::~Account()
 };
 
 */
-static void	Account::_displayTimestamp()
+void	Account::_displayTimestamp()
 {
 	std::time_t t;  // Declares a variable 't' to store time in seconds
-	std::tm	current;
+	std::tm	*current;
+	char	buffer[20];
 
 	std::time(&t); // retrieve the current time in seconds since 1970
-	current = *std::localtime(&t); // convert to local time
+	current = std::localtime(&t); // convert to local time
 	
-	std::cout << std::put_time(&current, "[%Y%m%d_%H%M%S] "); // formats the time according to logs
+	std::strftime(buffer, sizeof(buffer), "[%Y%m%d_%H%M%S] ", current); // convert to string from current tm
+	std::cout << buffer; // print the formatted time
 }
 
-static int	Account::getNbAccounts( void )
+int	Account::getNbAccounts( void )
 {
 	return (_nbAccounts);
 }
 
-static int	Account::getTotalAmount( void )
+int	Account::getTotalAmount( void )
 {
 	return (_totalAmount);
 }
 
-static int	Account::getNbDeposits( void )
+int	Account::getNbDeposits( void )
 {
 	return (_totalNbDeposits);
 }
 
-static int	Account::getNbWithdrawals( void )
+int	Account::getNbWithdrawals( void )
 {
 	return (_totalNbWithdrawals);
 }
@@ -121,7 +124,7 @@ static int	Account::getNbWithdrawals( void )
 
 	Basically trying to display TOTAL ACCOUNT STATUS
 */
-static void	Account::displayAccountsInfos( void )
+void	Account::displayAccountsInfos( void )
 {
 	_displayTimestamp();
 	std::cout << "accounts:" << _nbAccounts
@@ -182,6 +185,7 @@ bool	Account::makeWithdrawal( int withdrawal )
 				  << ";p_amount:" << old_amount
 				  << ";withdrawal:refused"
 				  << std::endl;
+		return (false);
 	}
 	else
 	{
@@ -194,6 +198,7 @@ bool	Account::makeWithdrawal( int withdrawal )
 				  << ";amount:" << this->_amount
 				  << ";nb_deposits:" << this->_nbWithdrawals
 				  << std::endl;
+		return (true);
 	}
 }
 

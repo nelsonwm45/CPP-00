@@ -126,7 +126,7 @@ void	PhoneBook::prompt_display_contact()
 	{
 		std::cin.clear();  // Clear error state
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Remove bad input
-		std::cout << "Invalid index, please enter a number." << std::endl;
+		std::cout << RED << "Invalid index, please enter a number." << RESET << std::endl;
 		return ;
 	}
 	if (i >= 0 && i < maxContacts)

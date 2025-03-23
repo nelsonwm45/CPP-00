@@ -37,4 +37,5 @@ int	main()
 			std::cout << RED << "Only ADD, SEARCH and EXIT Commands are allowed" << RESET << std::endl;
 		}
 	}
+	return (0);
 }

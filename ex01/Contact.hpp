@@ -1,8 +1,11 @@
 #ifndef CONTACT_HPP
 #define CONTACT_HPP
 
+#include "PhoneBook.hpp"
 #include <iostream>
+#include <iomanip>
 #include <string>
+#include <limits> // for max()
 
 class Contact
 {

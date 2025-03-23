@@ -150,9 +150,15 @@ void	Account::makeDeposit( int deposit )
 {
 	int	old_amount;
 	
+	// Add for account
 	old_amount = this->_amount;
 	this->_amount += deposit;
 	this->_nbDeposits++;
+
+	// Add for all account
+	_totalAmount += deposit;
+	_totalNbDeposits++;
+
 	_displayTimestamp();
 	std::cout << "index:" << this->_accountIndex
 			  << ";p_amount:" << old_amount
@@ -189,14 +195,20 @@ bool	Account::makeWithdrawal( int withdrawal )
 	}
 	else
 	{
+		// Deduct for account only
 		this->_amount -= withdrawal;
 		_nbWithdrawals++;
+
+		// Deduct for total account
+		_totalAmount -= withdrawal;
+		_totalNbWithdrawals++;
+
 		_displayTimestamp();
 		std::cout << "index:" << this->_accountIndex
 				  << ";p_amount:" << old_amount
 				  << ";withdrawal:" << withdrawal
 				  << ";amount:" << this->_amount
-				  << ";nb_deposits:" << this->_nbWithdrawals
+				  << ";nb_withdrawals:" << this->_nbWithdrawals
 				  << std::endl;
 		return (true);
 	}

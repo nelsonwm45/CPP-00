@@ -41,7 +41,7 @@ $(NAME): $(OBJ)
 	@ $(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@ echo $(CYAN)" 🥨 Cleaning Onject Files..."$(RESET)
+	@ echo $(CYAN)" 🥨 Cleaning Object Files..."$(RESET)
 	@ $(RM) $(OBJ)
 
 fclean: clean

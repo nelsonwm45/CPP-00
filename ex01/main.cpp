@@ -9,7 +9,12 @@ int	main()
 	while (1)
 	{
 		phonebook.welcomeMessage();
-		std::getline(std::cin, command);
+		if (!std::getline(std::cin, command)) // Check for EOF
+		{
+			std::cout << GREEN << "🚪 EXIT" << RESET << std::endl;
+			std::exit(0);
+		}
+
 		for (size_t j = 0; j < command.length(); j++) // if user's input is lowercase letter, make it uppercase
 		{
 			if (command[j] >= 97 && command[j] <= 122)

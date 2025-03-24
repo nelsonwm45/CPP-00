@@ -58,7 +58,12 @@ void	PhoneBook::getContactInfo(std::string (&info)[5])
 	for (int k = 0; k < 5; k++)
 	{
 		std::cout << BLUE << prompts[k] << RESET;
-		std::getline(std::cin, info[k]);
+		if (!std::getline(std::cin, info[k])) // Handle EOF
+		{
+			std::cout << RED << "\nEOF detected. Exiting Program" << RESET << std::endl;
+			std::cin.clear(); // Clear error state
+			std::exit(0);
+		}
 		if (invalid_response(info[k]) == 0)
 		{
 			std::cout << RED << "Empty value/Invalid Response" << RESET << std::endl;
@@ -80,7 +85,6 @@ void	PhoneBook::addContact()
 	num_Contacts++;
 	if (maxContacts < 8)
 		maxContacts++;
-	std::cout << "✅ Contact added successfully!" << std::endl;
 }
 
 void	PhoneBook::print_table_header()
@@ -120,14 +124,18 @@ void	PhoneBook::print_contact_in_table()
 void	PhoneBook::prompt_display_contact()
 {
 	std::cout << BLUE << "Please enter the index of contact you wish to display: " << RESET;
-	std::cin >> i; // Only read for number, causing newline is not read
-
-	if (std::cin.fail())  // Handle non-integer input
+	if (!(std::cin >> i)) // Detect both EOF (Ctrl+D) and non-integer input
 	{
-		std::cin.clear();  // Clear error state
+		if (std::cin.eof()) // Check if the failure is due to EOF
+		{
+			std::cout << RED << "\nEOF detected. Exiting Program" << RESET << std::endl;
+			std::cin.clear(); // Clear error state
+			std::exit(0);
+		}
+		std::cin.clear();  // Clear error state for non-integer input
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Remove bad input
 		std::cout << RED << "Invalid index" << RESET << std::endl;
-		return ;
+		return;
 	}
 	if (i >= 0 && i < maxContacts)
 		displayContact(i);

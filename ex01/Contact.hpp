@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <string>
 #include <limits> // for max()
+#include <cstdlib> // for exit()
 
 class Contact
 {

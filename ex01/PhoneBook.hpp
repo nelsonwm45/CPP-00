@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <string>
 #include <limits> // for max()
+#include <cstdlib>
 
 # define RED "\033[31m"
 # define GREEN "\033[32m"
